@@ -1644,6 +1644,14 @@ local function run(msg, matches)
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked spam ")
 				return lock_group_spam(msg, data, target)
 			end
+			if matches[2] == 'tag' then
+				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked tag ")
+				return lock_group_spam(msg, data, target)
+			end
+			if matches[2] == 'username' then
+				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked username ")
+				return lock_group_spam(msg, data, target)
+			end
 			if matches[2] == 'flood' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked flood ")
 				return lock_group_flood(msg, data, target)
@@ -1686,6 +1694,14 @@ local function run(msg, matches)
 			end
 			if matches[2] == 'spam' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked spam")
+				return unlock_group_spam(msg, data, target)
+			end
+			if matches[2] == 'tag' then
+				savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked tag")
+				return unlock_group_spam(msg, data, target)
+			end
+			if matches[2] == 'username' then
+				savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked username")
 				return unlock_group_spam(msg, data, target)
 			end
 			if matches[2] == 'flood' then
@@ -2069,6 +2085,8 @@ return {
 	"%[(video)%]",
 	"%[(audio)%]",
 	"%[(contact)%]",
+        "%[(tag)%]",
+        "%[(username)%]",
 	"^!!tgservice (.+)$",
   },
   run = run,
