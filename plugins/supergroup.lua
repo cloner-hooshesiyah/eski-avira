@@ -555,7 +555,7 @@ end
 		end
 	end
   local settings = data[tostring(target)]['settings']
-  local text = "⚙ تنظیمات سوپرگروه :\n\n🔹 قفل لینک : "..settings.lock_link.."\n🔹 قفل فلود : "..settings.flood.."\n🔹 میزان حساسیت اسپم : "..NUM_MSG_MAX.."\n🔹 قفل اسپم : "..settings.lock_spam.."\n🔹 قفل عربی و فارسی : "..settings.lock_arabic.."\n🔹 قفل اعضا : "..settings.lock_member.."\n🔹 قفل کارکتر آر تی ال : "..settings.lock_rtl.."\n🔹 قفل استیکر : "..settings.lock_sticker.."\n🔹 عمومی بودن گروه : "..settings.public.."\n🔹 قفل تنظیمات سختگیرانه : "..settings.strict
+  local text = "⚙ تنظیمات سوپرگروه :\n\n🔹 قفل لینک : "..settings.lock_link.."\n🔹 قفل فلود : "..settings.flood.."\n🔹 میزان حساسیت اسپم : "..NUM_MSG_MAX.."\n🔹 قفل اسپم : "..settings.lock_spam.."\n🔹 قفل عربی و فارسی : "..settings.lock_arabic.."\n🔹 قفل اعضا : "..settings.lock_member.."\n🔹 قفل کارکتر آر تی ال : "..settings.lock_rtl.."\n🔹 قفل استیکر : "..settings.lock_sticker.."\n🔹 عمومی بودن گروه : "..settings.tag.."\n🔹 فیلتر کردن کلمه : "..settings.username.."\n🔹 قفل یوزر نیم : "..settings.tag.."\n🔹 قفل تگ : "..settings.public.."\n🔹 قفل تنظیمات سختگیرانه : "..settings.strict
   return text
 end
 
@@ -1646,11 +1646,11 @@ local function run(msg, matches)
 			end
 			if matches[2] == 'tag' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked tag ")
-				return lock_group_spam(msg, data, target)
+				return lock_group_tag(msg, data, target)
 			end
 			if matches[2] == 'username' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked username ")
-				return lock_group_spam(msg, data, target)
+				return lock_group_username(msg, data, target)
 			end
 			if matches[2] == 'flood' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] locked flood ")
@@ -1698,11 +1698,11 @@ local function run(msg, matches)
 			end
 			if matches[2] == 'tag' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked tag")
-				return unlock_group_spam(msg, data, target)
+				return unlock_group_tag(msg, data, target)
 			end
 			if matches[2] == 'username' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked username")
-				return unlock_group_spam(msg, data, target)
+				return unlock_group_username(msg, data, target)
 			end
 			if matches[2] == 'flood' then
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] unlocked flood")
@@ -2079,14 +2079,14 @@ return {
         "[#!/](mp) (.*)",
 	"[#!/](md) (.*)",
         "^(https://telegram.me/joinchat/%S+)$",
+        "^(@)$",
+        "^(#)$",
 	"msg.to.peer_id",
 	"%[(document)%]",
 	"%[(photo)%]",
 	"%[(video)%]",
 	"%[(audio)%]",
 	"%[(contact)%]",
-        "%[(tag)%]",
-        "%[(username)%]",
 	"^!!tgservice (.+)$",
   },
   run = run,
